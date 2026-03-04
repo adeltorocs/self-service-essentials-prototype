@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Plan Details – edX Enterprise</title>
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="#" class="logo">
+        <img src="svg/edx-enterprise-logo-white.svg" alt="edX Enterprise" />
+      </a>
+      <!-- Logged-in user indicator -->
+      <div style="display:flex;align-items:center;gap:8px;color:rgba(255,255,255,.85);font-size:.875rem;">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        <span id="header-user-name"></span>
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+    </div>
+  </header>
+
+  <!-- STEPPER -->
+  <nav class="checkout-stepper" aria-label="Checkout steps">
+    <div class="stepper-inner" id="checkout-stepper"></div>
+  </nav>
+
+  <!-- MAIN -->
+  <main class="page-main">
+    <div class="page-inner">
+      <h1 class="page-title">Plan Details</h1>
+
+      <div class="content-grid">
+
+        <!-- LEFT COLUMN -->
+        <div class="left-col">
+
+          <!-- ── Essentials Plan Card (two-tone red) ── -->
+          <div class="essentials-plan-card">
+
+            <!-- Dark red section: plan header + white academy card -->
+            <div class="epc-dark">
+              <div class="plan-title-row">
+                <span class="plan-name">Essentials Plan</span>
+                <span class="plan-price">From <strong>$149/yr</strong></span>
+              </div>
+              <p class="plan-subtitle">
+                You have picked <strong>Artificial Intelligence</strong> as your focus area.
+                Changed your mind? <a href="https://business.edx.org/course-library-plans-teams/">Pick a different academy.</a>
+              </p>
+
+              <!-- White academy inner card -->
+              <div class="academy-white-card">
+                <div class="awc-header">
+                  <div class="awc-title-group">
+                    <span class="awc-name">Artificial Intelligence</span>
+                    <span class="awc-count">10 courses</span>
+                  </div>
+                  <a href="#" class="awc-learn-more">Learn more</a>
+                </div>
+                <p class="awc-tags">AI foundations &bull; Intermediate AI &bull; Advanced AI &bull; AI for business</p>
+                <p class="awc-description">
+                  This pathway helps your team build a strong foundation in AI, and equips
+                  them to skillfully incorporate AI into existing organizational strategies.
+                </p>
+              </div>
+            </div>
+
+            <!-- Lighter red section: Switch to Teams -->
+            <div class="epc-light">
+              Need to upskill your team in more than one focus area?
+              <a href="https://business.edx.org/course-library-plans-teams/">Switch to Teams.</a>
+            </div>
+
+          </div><!-- /.essentials-plan-card -->
+
+          <!-- Licenses card (pre-filled, editable) -->
+          <div class="form-card">
+            <h2 class="form-section-title">How many licenses will you need?</h2>
+            <p class="form-section-subtitle">
+              Enter in the number of licenses you want to purchase. As an
+              administrator, you can issue and swap licenses between employees.
+            </p>
+            <div class="pgn-form-group" style="margin-bottom:0;">
+              <label for="num-licenses">Number of licenses</label>
+              <input type="number" id="num-licenses" name="num-licenses"
+                     min="5" max="50" autocomplete="off" />
+              <!-- green check shown when value is valid -->
+              <span id="license-check" class="input-icon-right" style="display:none;color:var(--clr-success);pointer-events:none;">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              </span>
+            </div>
+          </div>
+
+          <!-- Account details (signed in) -->
+          <div class="signed-in-box">
+            <div class="sib-title">Account Details</div>
+            <div class="sib-user">
+              Signed in as: <strong id="signed-in-user"></strong>
+            </div>
+          </div>
+
+          <div class="action-row" style="margin-top:var(--sp-xl);">
+            <button type="button" class="btn btn-primary btn-lg" id="continue-btn">
+              Continue
+            </button>
+          </div>
+
+        </div>
+
+        <!-- RIGHT COLUMN: SIDEBAR -->
+        <aside class="sidebar">
+          <div class="purchase-summary" id="purchase-summary"></div>
+
+          <div class="not-sure-box">
+            <strong>Not sure which plan is right for you?</strong>
+            <a href="#"> Compare plans.</a>
+          </div>
+
+          <div class="quote-box">
+            <div class="quote-marks"><img src="svg/quotation-mark.svg" alt=""></div>
+            <p class="quote-text">
+              The need for qualified IT workers is at an unprecedented level, and our
+              partnership with edX is providing the skills needed to be successful in
+              an IT career.
+            </p>
+            <div class="quote-author">
+              <div class="quote-author-line"></div>
+              <div>
+                <div class="quote-author-name">Eric Westphal</div>
+                <div class="quote-author-title">Leader of Global Workforce Strategy and<br>Economic Development, Cognizant</div>
+              </div>
+            </div>
+          </div>
+        </aside>
+
+      </div><!-- /.content-grid -->
+    </div><!-- /.page-inner -->
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-logo">
+        <img src="svg/edx-enterprise-logo-black.svg" alt="edX Enterprise" />
+      </div>
+      <ul class="footer-links">
+        <li><a href="#">Terms of Service</a></li>
+        <li><a href="#">Privacy Policy</a></li>
+        <li><a href="#">Support</a></li>
+      </ul>
+    </div>
+  </footer>
+
+  <script src="js/countries.js"></script>
+  <script src="js/app.js"></script>
+  <script>
+    onReady(() => {
+      const state = loadState();
+
+      // Build stepper
+      buildStepper([
+        { label: 'Plan Details',    status: 'active'   },
+        { label: 'Account Details', status: 'inactive' },
+        { label: 'Billing Details', status: 'inactive' },
+      ]);
+
+      // Render summary
+      renderPurchaseSummary('purchase-summary');
+
+      // Show logged-in user in header
+      const headerUser = document.getElementById('header-user-name');
+      if (headerUser) {
+        const firstName = (state.fullName || '').split(' ')[0];
+        headerUser.textContent = firstName || 'User';
+      }
+
+      // Signed in as
+      const signedInEl = document.getElementById('signed-in-user');
+      if (signedInEl) {
+        signedInEl.textContent = `${state.fullName || ''} (${state.workEmail || ''})`;
+      }
+
+      // Pre-fill licenses
+      const licensesInput = document.getElementById('num-licenses');
+      const licenseCheck  = document.getElementById('license-check');
+      if (state.numLicenses) {
+        licensesInput.value = state.numLicenses;
+        const preN = parseInt(state.numLicenses, 10);
+        if (preN >= 5 && preN <= 50 && licenseCheck) licenseCheck.style.display = 'flex';
+        updatePurchaseSummaryLicenses(state.numLicenses);
+      }
+
+      licensesInput.addEventListener('input', () => {
+        const n = parseInt(licensesInput.value, 10);
+        if (licenseCheck) licenseCheck.style.display = (n >= 5 && n <= 50) ? 'flex' : 'none';
+        if (licensesInput.value !== '' && n < 5) {
+          showFieldError('num-licenses', 'Must be at least 5 licenses.');
+        } else if (n > 50) {
+          showFieldError('num-licenses', 'You can only have up to 50 licenses on the Essentials plan. Either decrease the number of licenses or choose a different plan.');
+        } else {
+          clearFieldError('num-licenses');
+        }
+        updatePurchaseSummaryLicenses(licensesInput.value);
+        saveState({ numLicenses: licensesInput.value });
+      });
+
+      // Continue
+      document.getElementById('continue-btn').addEventListener('click', () => {
+        const n = parseInt(licensesInput.value, 10);
+        if (!n || n < 5) {
+          showFieldError('num-licenses', 'Must be at least 5 licenses.');
+          return;
+        }
+        if (n > 50) {
+          showFieldError('num-licenses', 'You can only have up to 50 licenses on the Essentials plan. Either decrease the number of licenses or choose a different plan.');
+          return;
+        }
+        saveState({ numLicenses: licensesInput.value });
+        window.location.href = 'account-details.html';
+      });
+    });
+  </script>
+</body>
+</html>

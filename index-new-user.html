@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Essentials Plan Details – edX Enterprise</title>
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="#" class="logo">
+        <img src="svg/edx-enterprise-logo-white.svg" alt="edX Enterprise" />
+      </a>
+    </div>
+  </header>
+
+  <!-- STEPPER -->
+  <nav class="checkout-stepper" aria-label="Checkout steps">
+    <div class="stepper-inner" id="checkout-stepper"></div>
+  </nav>
+
+  <!-- MAIN -->
+  <main class="page-main">
+    <div class="page-inner">
+      <h1 class="page-title">Plan Details</h1>
+
+      <div class="content-grid">
+
+        <!-- LEFT COLUMN -->
+        <div class="left-col">
+
+          <!-- ── Essentials Plan Card (two-tone red) ── -->
+          <div class="essentials-plan-card">
+
+            <!-- Dark red section: plan header + white academy card -->
+            <div class="epc-dark">
+              <div class="plan-title-row">
+                <span class="plan-name">Essentials Plan</span>
+                <span class="plan-price">From <strong>$149/yr</strong></span>
+              </div>
+              <p class="plan-subtitle">
+                You have picked <strong>Artificial Intelligence</strong> as your focus area.
+                Changed your mind? <a href="https://business.edx.org/course-library-plans-teams/">Pick a different academy.</a>
+              </p>
+
+              <!-- White academy inner card -->
+              <div class="academy-white-card">
+                <div class="awc-header">
+                  <div class="awc-title-group">
+                    <span class="awc-name">Artificial Intelligence</span>
+                    <span class="awc-count">10 courses</span>
+                  </div>
+                  <a href="#" class="awc-learn-more">Learn more</a>
+                </div>
+                <p class="awc-tags">AI foundations &bull; Intermediate AI &bull; Advanced AI &bull; AI for business</p>
+                <p class="awc-description">
+                  This pathway helps your team build a strong foundation in AI, and equips
+                  them to skillfully incorporate AI into existing organizational strategies.
+                </p>
+              </div>
+            </div>
+
+            <!-- Lighter red section: Switch to Teams -->
+            <div class="epc-light">
+              Need to upskill your team in more than one focus area?
+              <a href="https://business.edx.org/course-library-plans-teams/">Switch to Teams.</a>
+            </div>
+
+          </div><!-- /.essentials-plan-card -->
+
+          <!-- ── Form ── -->
+          <form id="plan-details-form" novalidate>
+
+            <!-- Licenses card -->
+            <div class="form-card">
+              <h2 class="form-section-title">How many licenses will you need?</h2>
+              <p class="form-section-subtitle">
+                Enter in the number of licenses you want to purchase. As an
+                administrator, you can issue and swap licenses between employees.
+              </p>
+              <div class="pgn-form-group" style="margin-bottom:0;">
+                <label for="num-licenses">Number of licenses</label>
+                <input type="number" id="num-licenses" name="num-licenses"
+                       min="5" max="50" placeholder="" autocomplete="off" />
+                <p class="form-error-msg">Please enter the number of licenses.</p>
+              </div>
+            </div>
+
+            <!-- Name & Email card -->
+            <div class="form-card">
+              <h2 class="form-section-title">What's your name and email?</h2>
+              <p class="form-section-subtitle">
+                Please use your work email to build your Essentials subscription trial.
+              </p>
+              <div class="pgn-form-group">
+                <label for="full-name">Full name</label>
+                <input type="text" id="full-name" name="full-name" autocomplete="name" />
+                <p class="form-error-msg">Please enter your full name.</p>
+              </div>
+              <div class="pgn-form-group">
+                <label for="work-email">Work email</label>
+                <input type="email" id="work-email" name="work-email" autocomplete="email" />
+                <p class="form-error-msg">Please enter a valid work email address.</p>
+              </div>
+              <div class="pgn-form-group" style="margin-bottom:0;">
+                <label for="country-of-residence">Country of residence</label>
+                <select id="country-of-residence" name="country-of-residence"></select>
+                <p class="form-error-msg">Please select your country of residence.</p>
+              </div>
+            </div>
+
+            <p class="terms-text">
+              By submitting your info in the form above, you agree to our
+              <a href="https://www.edx.org/edx-terms-service">Terms of Use</a> and <a href="https://www.edx.org/edx-privacy-policy">Privacy Notice</a>.
+              We may use this info to contact you and/or use data from third parties to
+              personalize your experience.
+            </p>
+
+            <div class="action-row">
+              <button type="submit" class="btn btn-primary btn-lg" id="continue-btn" disabled>
+                Continue
+              </button>
+            </div>
+
+          </form>
+        </div>
+
+        <!-- RIGHT COLUMN: SIDEBAR -->
+        <aside class="sidebar">
+          <div class="purchase-summary" id="purchase-summary"></div>
+
+          <div class="not-sure-box">
+            <strong>Not sure which plan is right for you?</strong>
+            <a href="#"> Compare plans.</a>
+          </div>
+
+          <div class="quote-box">
+            <div class="quote-marks"><img src="svg/quotation-mark.svg" alt=""></div>
+            <p class="quote-text">
+              The need for qualified IT workers is at an unprecedented level, and our
+              partnership with edX is providing the skills needed to be successful in
+              an IT career.
+            </p>
+            <div class="quote-author">
+              <div class="quote-author-line"></div>
+              <div>
+                <div class="quote-author-name">Eric Westphal</div>
+                <div class="quote-author-title">Leader of Global Workforce Strategy and<br>Economic Development, Cognizant</div>
+              </div>
+            </div>
+          </div>
+        </aside>
+
+      </div><!-- /.content-grid -->
+    </div><!-- /.page-inner -->
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-logo">
+        <img src="svg/edx-enterprise-logo-black.svg" alt="edX Enterprise" />
+      </div>
+      <ul class="footer-links">
+        <li><a href="#">Terms of Service</a></li>
+        <li><a href="#">Privacy Policy</a></li>
+        <li><a href="#">Support</a></li>
+      </ul>
+    </div>
+  </footer>
+
+  <script src="js/countries.js"></script>
+  <script src="js/app.js"></script>
+  <script>
+    onReady(() => {
+      // Set flow type
+      saveState({ flow: 'new' });
+
+      // Build stepper
+      buildStepper([
+        { label: 'Plan Details',    status: 'active'   },
+        { label: 'Account Details', status: 'inactive' },
+        { label: 'Billing Details', status: 'inactive' },
+      ]);
+
+      // Populate country dropdown
+      populateCountrySelect('country-of-residence');
+
+      // Render purchase summary
+      renderPurchaseSummary('purchase-summary');
+
+      // Wire license input → summary update + enable/disable Continue
+      const licensesInput = document.getElementById('num-licenses');
+      const nameInput     = document.getElementById('full-name');
+      const emailInput    = document.getElementById('work-email');
+      const countryInput  = document.getElementById('country-of-residence');
+      const continueBtn   = document.getElementById('continue-btn');
+
+      function checkFormReady() {
+        const n = parseInt(licensesInput.value, 10);
+        const ready = n >= 5 && n <= 50
+          && nameInput.value.trim().length > 0
+          && isValidEmail(emailInput.value.trim())
+          && countryInput.value !== '';
+        continueBtn.disabled = !ready;
+      }
+
+      licensesInput.addEventListener('input', () => {
+        const n = parseInt(licensesInput.value, 10);
+        if (licensesInput.value !== '' && n < 5) {
+          showFieldError('num-licenses', 'Must be at least 5 licenses.');
+        } else if (n > 50) {
+          showFieldError('num-licenses', 'You can only have up to 50 licenses on the Essentials plan. Either decrease the number of licenses or choose a different plan.');
+        } else {
+          clearFieldError('num-licenses');
+        }
+        updatePurchaseSummaryLicenses(licensesInput.value);
+        saveState({ numLicenses: licensesInput.value });
+        checkFormReady();
+      });
+
+      nameInput.addEventListener('input', () => {
+        saveState({ fullName: nameInput.value.trim() });
+        checkFormReady();
+      });
+
+      emailInput.addEventListener('input', () => {
+        clearFieldError('work-email');
+        saveState({ workEmail: emailInput.value.trim() });
+        checkFormReady();
+      });
+
+      emailInput.addEventListener('blur', () => {
+        const err = emailError(emailInput.value.trim());
+        if (err && emailInput.value.trim()) showFieldError('work-email', err);
+      });
+
+      countryInput.addEventListener('change', () => {
+        saveState({ country: countryInput.value });
+        checkFormReady();
+      });
+
+      // Pre-fill from state (e.g. back navigation)
+      const state = loadState();
+      if (state.numLicenses) {
+        licensesInput.value = state.numLicenses;
+        updatePurchaseSummaryLicenses(state.numLicenses);
+      }
+      if (state.fullName)  nameInput.value   = state.fullName;
+      if (state.workEmail) emailInput.value  = state.workEmail;
+      if (state.country) {
+        // re-populate with selection
+        populateCountrySelect('country-of-residence', state.country);
+      }
+      checkFormReady();
+
+      // Form submit
+      document.getElementById('plan-details-form').addEventListener('submit', (e) => {
+        e.preventDefault();
+        clearAllErrors('plan-details-form');
+        let valid = true;
+
+        const n = parseInt(licensesInput.value, 10);
+        if (!n || n < 5) { showFieldError('num-licenses', 'Must be at least 5 licenses.'); valid = false; }
+        else if (n > 50) { showFieldError('num-licenses', 'You can only have up to 50 licenses on the Essentials plan. Either decrease the number of licenses or choose a different plan.'); valid = false; }
+
+        if (!nameInput.value.trim()) { showFieldError('full-name', 'Please enter your full name.'); valid = false; }
+
+        const emailErr = emailError(emailInput.value.trim());
+        if (emailErr) { showFieldError('work-email', emailErr); valid = false; }
+
+        if (!countryInput.value) { showFieldError('country-of-residence', 'Please select your country of residence.'); valid = false; }
+
+        if (!valid) return;
+
+        saveState({
+          numLicenses: licensesInput.value,
+          fullName:    nameInput.value.trim(),
+          workEmail:   emailInput.value.trim(),
+          country:     countryInput.value,
+          flow:        'new',
+        });
+
+        // New user → create account page
+        window.location.href = 'create-account.html';
+      });
+    });
+  </script>
+</body>
+</html>
