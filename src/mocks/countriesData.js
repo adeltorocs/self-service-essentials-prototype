@@ -1,7 +1,6 @@
-/* Country list for Country of Residence dropdown.
-   United States first; Belarus and Russia excluded. */
-
-const COUNTRIES = [
+// BACKEND: replace with GET /api/v1/countries (or use a static list from @edx/i18n-module)
+// United States first; Belarus (BY) and Russia (RU) excluded per compliance policy.
+export const COUNTRIES = [
   { code: 'US', name: 'United States' },
   { code: 'AF', name: 'Afghanistan' },
   { code: 'AL', name: 'Albania' },
@@ -193,21 +192,3 @@ const COUNTRIES = [
   { code: 'ZM', name: 'Zambia' },
   { code: 'ZW', name: 'Zimbabwe' },
 ];
-
-/**
- * Populate a <select> element with the country list.
- * @param {string} selectId   - ID of the <select> element
- * @param {string} [selected] - Pre-selected country name or code
- */
-function populateCountrySelect(selectId, selected) {
-  const sel = document.getElementById(selectId);
-  if (!sel) return;
-  sel.innerHTML = '<option value="">Select a country</option>';
-  COUNTRIES.forEach(({ code, name }) => {
-    const opt = document.createElement('option');
-    opt.value = name;
-    opt.textContent = name;
-    if (selected && (selected === name || selected === code)) opt.selected = true;
-    sel.appendChild(opt);
-  });
-}
