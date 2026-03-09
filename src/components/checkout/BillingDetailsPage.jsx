@@ -133,28 +133,23 @@ function BillingDetailsPage() {
         </h2>
         <div className="form-row">
           <Form.Group controlId="b-first-name" isInvalid={!!errors.firstName}>
-            <Form.Label>First Name (required)</Form.Label>
-            <Form.Control type="text" value={firstName} onChange={(e) => setFirstName(e.target.value)} autoComplete="given-name" />
+            <Form.Control type="text" value={firstName} onChange={(e) => setFirstName(e.target.value)} autoComplete="given-name" placeholder="First Name" />
             {errors.firstName && <Form.Control.Feedback type="invalid">{errors.firstName}</Form.Control.Feedback>}
           </Form.Group>
           <Form.Group controlId="b-last-name" isInvalid={!!errors.lastName}>
-            <Form.Label>Last Name (required)</Form.Label>
-            <Form.Control type="text" value={lastName} onChange={(e) => setLastName(e.target.value)} autoComplete="family-name" />
+            <Form.Control type="text" value={lastName} onChange={(e) => setLastName(e.target.value)} autoComplete="family-name" placeholder="Last Name" />
             {errors.lastName && <Form.Control.Feedback type="invalid">{errors.lastName}</Form.Control.Feedback>}
           </Form.Group>
         </div>
-        <Form.Group controlId="b-address1" isInvalid={!!errors.address1} style={{ gridColumn: '1 / -1' }}>
-          <Form.Label>Address (required)</Form.Label>
-          <Form.Control type="text" value={address1} onChange={(e) => setAddress1(e.target.value)} autoComplete="address-line1" />
+        <Form.Group controlId="b-address1" isInvalid={!!errors.address1}>
+          <Form.Control type="text" value={address1} onChange={(e) => setAddress1(e.target.value)} autoComplete="address-line1" placeholder="Address" />
           {errors.address1 && <Form.Control.Feedback type="invalid">{errors.address1}</Form.Control.Feedback>}
         </Form.Group>
         <Form.Group controlId="b-address2">
-          <Form.Label>Address 2</Form.Label>
-          <Form.Control type="text" value={address2} onChange={(e) => setAddress2(e.target.value)} autoComplete="address-line2" />
+          <Form.Control type="text" value={address2} onChange={(e) => setAddress2(e.target.value)} autoComplete="address-line2" placeholder="Address 2" />
         </Form.Group>
         <Form.Group controlId="b-city" isInvalid={!!errors.city}>
-          <Form.Label>City (required)</Form.Label>
-          <Form.Control type="text" value={city} onChange={(e) => setCity(e.target.value)} autoComplete="address-level2" />
+          <Form.Control type="text" value={city} onChange={(e) => setCity(e.target.value)} autoComplete="address-level2" placeholder="City" />
           {errors.city && <Form.Control.Feedback type="invalid">{errors.city}</Form.Control.Feedback>}
         </Form.Group>
         <CountrySelect
@@ -166,12 +161,10 @@ function BillingDetailsPage() {
         />
         <div className="form-row">
           <Form.Group controlId="b-state">
-            <Form.Label>State/Province</Form.Label>
-            <Form.Control type="text" value={stateField} onChange={(e) => setStateField(e.target.value)} autoComplete="address-level1" />
+            <Form.Control type="text" value={stateField} onChange={(e) => setStateField(e.target.value)} autoComplete="address-level1" placeholder="State/Province" />
           </Form.Group>
           <Form.Group controlId="b-zip">
-            <Form.Label>ZIP/Postal Code</Form.Label>
-            <Form.Control type="text" value={zip} onChange={(e) => setZip(e.target.value)} autoComplete="postal-code" />
+            <Form.Control type="text" value={zip} onChange={(e) => setZip(e.target.value)} autoComplete="postal-code" placeholder="ZIP/Postal Code" />
           </Form.Group>
         </div>
       </div>
@@ -184,37 +177,36 @@ function BillingDetailsPage() {
           card for future payments in accordance with their terms.
         </p>
 
-        {/* Card number */}
-        {/* BACKEND: replace this input block with Stripe Elements <CardNumberElement>
+        {/* Card number + Expiry + CVC — single row */}
+        {/* BACKEND: replace card-number input with Stripe Elements <CardNumberElement>
                      or Braintree Drop-in UI for PCI-compliant card tokenization */}
-        <div style={{ marginBottom: 'var(--sp-md)' }}>
-          <div style={{ display: 'flex', alignItems: 'center', marginBottom: 6 }}>
-            <span style={{ fontSize: '.75rem', fontWeight: 600, color: 'var(--clr-text-muted)' }}>Card Number</span>
-            <div style={{ display: 'flex', gap: 4, marginLeft: 'auto' }}>
-              <span className="card-icon visa">VISA</span>
-              <span className="card-icon mc">MC</span>
-              <span className="card-icon amex">AMEX</span>
-            </div>
-          </div>
-          <input
-            id="card-number"
-            type="text"
-            className={`card-number-input${errors.cardNumber ? ' is-invalid' : ''}`}
-            value={cardNumber}
-            onChange={(e) => setCardNumber(formatCardNumber(e.target.value))}
-            placeholder="1234 5678 9012 3456"
-            autoComplete="cc-number"
-            inputMode="numeric"
-            maxLength={19}
-          />
-          {errors.cardNumber && (
-            <p style={{ color: 'var(--clr-error)', fontSize: '.8125rem', marginTop: 4 }}>{errors.cardNumber}</p>
-          )}
-        </div>
+        <div className="billing-fields-row">
 
-        <div className="form-row">
-          <Form.Group controlId="card-expiry" isInvalid={!!errors.expiry}>
-            <Form.Label>Expiration</Form.Label>
+          {/* Card Number */}
+          <div className="billing-card-number-field">
+            <div className="input-icon-wrapper">
+              <input
+                id="card-number"
+                type="text"
+                className={`card-number-input${errors.cardNumber ? ' is-invalid' : ''}`}
+                value={cardNumber}
+                onChange={(e) => setCardNumber(formatCardNumber(e.target.value))}
+                placeholder="1234 1234 1234 1234"
+                autoComplete="cc-number"
+                inputMode="numeric"
+                maxLength={19}
+              />
+              <span className="input-cc-icon" aria-hidden="true">
+                <span className="card-icon visa">VISA</span>
+              </span>
+            </div>
+            {errors.cardNumber && (
+              <p style={{ color: 'var(--clr-error)', fontSize: '.8125rem', marginTop: 4 }}>{errors.cardNumber}</p>
+            )}
+          </div>
+
+          {/* Expiry */}
+          <Form.Group controlId="card-expiry" isInvalid={!!errors.expiry} style={{ marginBottom: 0 }}>
             <Form.Control
               type="text"
               value={expiry}
@@ -226,19 +218,30 @@ function BillingDetailsPage() {
             />
             {errors.expiry && <Form.Control.Feedback type="invalid">{errors.expiry}</Form.Control.Feedback>}
           </Form.Group>
-          <Form.Group controlId="card-cvc" isInvalid={!!errors.cvc}>
-            <Form.Label>CVC</Form.Label>
-            <Form.Control
-              type="text"
-              value={cvc}
-              onChange={(e) => setCvc(formatCvc(e.target.value))}
-              placeholder="CVC"
-              autoComplete="cc-csc"
-              maxLength={4}
-              inputMode="numeric"
-            />
+
+          {/* CVC */}
+          <Form.Group controlId="card-cvc" isInvalid={!!errors.cvc} style={{ marginBottom: 0 }}>
+            <div className="input-icon-wrapper">
+              <Form.Control
+                type="text"
+                value={cvc}
+                onChange={(e) => setCvc(formatCvc(e.target.value))}
+                placeholder="CVC"
+                autoComplete="cc-csc"
+                maxLength={4}
+                inputMode="numeric"
+              />
+              <span className="input-cvc-icon" aria-hidden="true">
+                <svg width="24" height="16" viewBox="0 0 24 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <rect x="1" y="1" width="22" height="14" rx="2" stroke="currentColor" strokeWidth="1.5" />
+                  <rect x="1" y="4" width="22" height="3" fill="currentColor" fillOpacity="0.35" />
+                  <rect x="3" y="10" width="7" height="2" rx="0.5" fill="currentColor" fillOpacity="0.45" />
+                </svg>
+              </span>
+            </div>
             {errors.cvc && <Form.Control.Feedback type="invalid">{errors.cvc}</Form.Control.Feedback>}
           </Form.Group>
+
         </div>
       </div>
 

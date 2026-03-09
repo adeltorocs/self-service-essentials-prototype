@@ -259,9 +259,9 @@ img, svg { display: block; }
 }
 
 .plan-subtitle a {
-  color: rgba(255,255,255,.9);
+  color: #ffffff !important;
   font-weight: 600;
-  text-decoration: underline;
+  text-decoration: underline !important;
 }
 
 /* ── ACADEMY WHITE INNER CARD ───────────────────────────────── */
@@ -508,7 +508,7 @@ img, svg { display: block; }
 .url-prefix {
   background: #f0f0ee;
   border: 1px solid var(--clr-border);
-  border-right: none;
+  border-right: 1px solid var(--clr-border);
   border-radius: var(--radius) 0 0 var(--radius);
   height: 48px;
   padding: 0 12px;
@@ -525,6 +525,13 @@ img, svg { display: block; }
   margin-bottom: 0;
 }
 
+/* Input inside the URL builder: flush against the prefix, no left border */
+.url-builder input {
+  height: 48px !important;
+  border-left: none !important;
+  border-radius: 0 var(--radius) var(--radius) 0 !important;
+}
+
 .url-hint {
   font-size: 0.75rem;
   color: var(--clr-text-muted);
@@ -536,7 +543,7 @@ img, svg { display: block; }
   background: #f5f7f5;
   border: 1px solid #c4d9c4;
   border-radius: var(--radius-md);
-  padding: var(--sp-md) var(--sp-lg);
+  padding: var(--sp-lg) var(--sp-lg);
   margin-top: var(--sp-lg);
 }
 
@@ -622,8 +629,7 @@ img, svg { display: block; }
 .success-subtitle {
   font-size: 0.9375rem;
   color: var(--clr-text-muted);
-  max-width: 480px;
-  margin: 0 auto var(--sp-xl);
+  margin: 0 0 var(--sp-xl);
   line-height: 1.6;
 }
 
@@ -845,6 +851,166 @@ img, svg { display: block; }
 
 /* ── LOADING SPINNER ─────────────────────────────────────────── */
 @keyframes spin { to { transform: rotate(360deg); } }
+
+/* ── INPUT WITH ICON INSIDE (lock on left, toggle on right) ──── */
+
+/* Locked fields: lock icon on the LEFT inside the input */
+.input-locked-wrapper {
+  position: relative;
+}
+
+.input-locked-wrapper input,
+.input-locked-wrapper select {
+  padding-left: 38px !important;
+  background-color: #f0f0ee !important;
+  color: var(--clr-text-muted) !important;
+  cursor: not-allowed !important;
+}
+
+.input-lock-icon {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--clr-text-muted);
+  display: flex;
+  align-items: center;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Password / toggle fields: icon button on the RIGHT inside the input */
+.input-icon-wrapper {
+  position: relative;
+}
+
+.input-icon-wrapper input {
+  padding-right: 44px !important;
+}
+
+.input-icon-right {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  padding: 4px;
+  cursor: pointer;
+  color: var(--clr-text-muted);
+  display: flex;
+  align-items: center;
+  z-index: 1;
+}
+
+.input-icon-right:hover { color: var(--clr-text); }
+
+/* Checkmark icon on the RIGHT inside the input (read-only indicator) */
+.input-check-icon {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--clr-success);
+  display: flex;
+  align-items: center;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* ── BILLING FIELDS SINGLE ROW ───────────────────────────────── */
+.billing-fields-row {
+  display: flex;
+  gap: var(--sp-sm);
+  align-items: flex-start;
+}
+
+.billing-card-number-field {
+  flex: 2;
+  min-width: 0;
+}
+
+.billing-fields-row > .pgn__form-group {
+  flex: 1;
+  min-width: 0;
+  margin-bottom: 0;
+}
+
+/* Card number plain <input> — exactly matches Paragon Form.Control computed styles */
+.card-number-input {
+  display: block;
+  width: 100%;
+  padding: 9px 16px;
+  border: 1px solid rgb(112, 112, 112);
+  border-radius: 6px;
+  background-color: var(--clr-white);
+  color: var(--clr-text);
+  font-family: var(--font);
+  font-size: 18px;
+  line-height: 24px;
+  box-sizing: border-box;
+  outline: none;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.card-number-input:focus {
+  border-color: var(--clr-border-focus);
+  box-shadow: 0 0 0 2px rgba(10, 43, 37, 0.15);
+}
+
+.card-number-input.is-invalid {
+  border-color: var(--clr-error);
+}
+
+.card-number-input::placeholder {
+  color: var(--clr-text-muted);
+  opacity: 1;
+}
+
+/* Credit card outline icon — inside card number field on right */
+.input-cc-icon {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--clr-text-muted);
+  display: flex;
+  align-items: center;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Card outline icon — inside CVC field on right */
+.input-cvc-icon {
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--clr-text-muted);
+  display: flex;
+  align-items: center;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* ── CHECKBOX GROUP SPACING ──────────────────────────────────── */
+.pgn-checkbox-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-sm);
+}
+
+.pgn-checkbox {
+  display: flex !important;
+  align-items: flex-start !important;
+  gap: 10px !important;
+  cursor: pointer;
+}
+
+.pgn-checkbox input[type="checkbox"] {
+  flex-shrink: 0;
+  margin-top: 3px;
+}
 
 /* ── PARAGON OVERRIDES ───────────────────────────────────────── */
 /* Override Paragon brand colors to match edX Enterprise theme */

@@ -48,7 +48,7 @@ function SuccessPage() {
 
   // View Receipt replaces Upgrade to Teams in sidebar on this page
   const sidebarFooter = (
-    <Link to={ROUTES.ADMIN} className="btn btn-full" style={{ marginTop: 'var(--sp-md)', background: 'var(--clr-white)', border: '1px solid var(--clr-border)', color: 'var(--clr-primary)', display: 'block', textAlign: 'center' }}>
+    <Link to={ROUTES.ADMIN} className="btn btn-full" style={{ marginTop: 'var(--sp-md)', background: 'var(--clr-white)', border: '1px solid var(--clr-border)', color: 'var(--clr-primary)', display: 'block', textAlign: 'center', textDecoration: 'none' }}>
       View Receipt
     </Link>
   );
@@ -68,7 +68,7 @@ function SuccessPage() {
       </p>
 
       <div className="action-row" style={{ marginTop: 'var(--sp-lg)', marginBottom: 'var(--sp-lg)', justifyContent: 'center' }}>
-        <Button as={Link} to={ROUTES.ADMIN} variant="brand" size="lg">
+        <Button as={Link} to={ROUTES.ADMIN} variant="brand" size="lg" style={{ textDecoration: 'none' }}>
           Go to Dashboard →
         </Button>
       </div>
@@ -87,7 +87,7 @@ function SuccessPage() {
           you must cancel before your trial expires. This subscription will automatically renew
           every year unless you cancel from the <Link to={ROUTES.ADMIN}>Subscription Management</Link> page.
         </p>
-        <div className="plan-dates" style={{ marginTop: 'var(--sp-md)', paddingTop: 'var(--sp-md)', borderTop: '1px solid var(--clr-border)' }}>
+        <div className="plan-dates" style={{ marginTop: 'var(--sp-md)', paddingTop: 'var(--sp-md)' }}>
           <strong>Your subscription plan</strong>
           <div style={{ marginTop: 4, fontSize: '.875rem', color: 'var(--clr-text)' }}>
             {subStartFmt} – {subEndFmt}

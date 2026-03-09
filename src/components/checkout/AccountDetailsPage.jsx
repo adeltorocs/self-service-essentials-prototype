@@ -75,12 +75,12 @@ function AccountDetailsPage() {
           What&apos;s the name of your company or organization?
         </h2>
         <Form.Group controlId="company-name" isInvalid={!!errors.companyName} style={{ marginTop: 'var(--sp-md)' }}>
-          <Form.Label>Company name</Form.Label>
           <Form.Control
             type="text"
             value={companyName}
             onChange={(e) => { setCompanyName(e.target.value); updateCheckout({ companyName: e.target.value }); }}
             autoComplete="organization"
+            placeholder="Company name"
           />
           {errors.companyName && (
             <Form.Control.Feedback type="invalid">{errors.companyName}</Form.Control.Feedback>
@@ -100,14 +100,23 @@ function AccountDetailsPage() {
         <div className="url-builder">
           <div className="url-prefix">https://enterprise.edx.org/</div>
           <Form.Group controlId="url-name" isInvalid={!!errors.urlName} style={{ marginBottom: 0 }}>
-            <Form.Label>Access link</Form.Label>
-            <Form.Control
-              type="text"
-              value={urlName}
-              onChange={handleUrlChange}
-              autoComplete="off"
-              pattern="[a-z0-9\-]+"
-            />
+            <div className="input-icon-wrapper">
+              <Form.Control
+                type="text"
+                value={urlName}
+                onChange={handleUrlChange}
+                autoComplete="off"
+                pattern="[a-z0-9\-]+"
+                placeholder="Access link"
+              />
+              {isUrlAvailable && urlName.length > 0 && (
+                <span className="input-check-icon" aria-label="Available">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                    <polyline points="20 6 9 17 4 12" />
+                  </svg>
+                </span>
+              )}
+            </div>
             {errors.urlName && (
               <Form.Control.Feedback type="invalid">{errors.urlName}</Form.Control.Feedback>
             )}
@@ -117,15 +126,6 @@ function AccountDetailsPage() {
         <p className="url-hint">
           Your link must be alphanumeric, lowercase, and may include hyphens.
         </p>
-
-        {isUrlAvailable && urlName.length > 0 && (
-          <p className="url-available show">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-              <polyline points="20 6 9 17 4 12" />
-            </svg>
-            Available
-          </p>
-        )}
       </div>
 
       <div className="action-row" style={{ marginTop: 'var(--sp-xl)' }}>

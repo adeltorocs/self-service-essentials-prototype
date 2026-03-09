@@ -133,7 +133,6 @@ function PlanDetailsPage({ flow = 'new' }) {
           </p>
 
           <Form.Group controlId="num-licenses" isInvalid={!!errors.numLicenses}>
-            <Form.Label>Number of licenses</Form.Label>
             <Form.Control
               type="number"
               value={numLicenses}
@@ -141,6 +140,7 @@ function PlanDetailsPage({ flow = 'new' }) {
               min={PLAN.minLicenses}
               max={PLAN.maxLicenses}
               autoComplete="off"
+              placeholder="Number of licenses"
             />
             {errors.numLicenses && (
               <Form.Control.Feedback type="invalid">
@@ -158,12 +158,12 @@ function PlanDetailsPage({ flow = 'new' }) {
           </p>
 
           <Form.Group controlId="full-name" isInvalid={!!errors.fullName}>
-            <Form.Label>Full name</Form.Label>
             <Form.Control
               type="text"
               value={fullName}
               onChange={(e) => { setFullName(e.target.value); updateCheckout({ fullName: e.target.value }); }}
               autoComplete="name"
+              placeholder="Full name"
             />
             {errors.fullName && (
               <Form.Control.Feedback type="invalid">{errors.fullName}</Form.Control.Feedback>
@@ -171,13 +171,13 @@ function PlanDetailsPage({ flow = 'new' }) {
           </Form.Group>
 
           <Form.Group controlId="work-email" isInvalid={!!errors.workEmail}>
-            <Form.Label>Work email</Form.Label>
             <Form.Control
               type="email"
               value={workEmail}
               onChange={(e) => { setWorkEmail(e.target.value); setErrors((prev) => ({ ...prev, workEmail: undefined })); updateCheckout({ workEmail: e.target.value }); }}
               onBlur={handleEmailBlur}
               autoComplete="email"
+              placeholder="Work email"
             />
             {errors.workEmail && (
               <Form.Control.Feedback type="invalid">{errors.workEmail}</Form.Control.Feedback>

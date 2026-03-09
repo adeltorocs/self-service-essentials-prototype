@@ -79,7 +79,6 @@ function PlanDetailsLoggedInPage() {
           administrator, you can issue and swap licenses between employees.
         </p>
         <Form.Group controlId="num-licenses" isInvalid={!!error}>
-          <Form.Label>Number of licenses</Form.Label>
           <div className="input-icon-wrapper">
             <Form.Control
               type="number"
@@ -88,6 +87,7 @@ function PlanDetailsLoggedInPage() {
               min={PLAN.minLicenses}
               max={PLAN.maxLicenses}
               autoComplete="off"
+              placeholder="Number of licenses"
             />
             {isValid && (
               <span className="input-check-icon" aria-label="Valid">

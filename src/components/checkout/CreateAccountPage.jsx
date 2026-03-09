@@ -106,29 +106,26 @@ function CreateAccountPage() {
 
       {/* Work email – locked */}
       <Form.Group controlId="ca-work-email">
-        <Form.Label>Work email</Form.Label>
         <div className="input-locked-wrapper">
-          <Form.Control type="email" value={state.workEmail || ''} readOnly tabIndex={-1} />
           <span className="input-lock-icon" aria-label="Read only">
             <Icon src={Lock} />
           </span>
+          <Form.Control type="email" value={state.workEmail || ''} readOnly tabIndex={-1} placeholder="Work email" />
         </div>
       </Form.Group>
 
       {/* Full name – locked */}
       <Form.Group controlId="ca-full-name">
-        <Form.Label>Full name</Form.Label>
         <div className="input-locked-wrapper">
-          <Form.Control type="text" value={state.fullName || ''} readOnly tabIndex={-1} />
           <span className="input-lock-icon" aria-label="Read only">
             <Icon src={Lock} />
           </span>
+          <Form.Control type="text" value={state.fullName || ''} readOnly tabIndex={-1} placeholder="Full name" />
         </div>
       </Form.Group>
 
       {/* Username */}
       <Form.Group controlId="ca-username" isInvalid={!!errors.username}>
-        <Form.Label>Public username</Form.Label>
         <Form.Control
           type="text"
           value={username}
@@ -144,19 +141,20 @@ function CreateAccountPage() {
             }
           }}
           autoComplete="username"
+          placeholder="Public username"
         />
         {errors.username && <Form.Control.Feedback type="invalid">{errors.username}</Form.Control.Feedback>}
       </Form.Group>
 
       {/* Password */}
       <Form.Group controlId="ca-password" isInvalid={!!errors.password}>
-        <Form.Label>Password</Form.Label>
         <div className="input-icon-wrapper">
           <Form.Control
             type={showPassword ? 'text' : 'password'}
             value={password}
             onChange={(e) => handlePasswordChange(e.target.value)}
             autoComplete="new-password"
+            placeholder="Password"
           />
           <button
             type="button"
@@ -172,13 +170,13 @@ function CreateAccountPage() {
 
       {/* Confirm password */}
       <Form.Group controlId="ca-confirm-password" isInvalid={!!errors.confirmPassword}>
-        <Form.Label>Confirm password</Form.Label>
         <div className="input-icon-wrapper">
           <Form.Control
             type={showConfirm ? 'text' : 'password'}
             value={confirmPassword}
             onChange={(e) => handleConfirmChange(e.target.value)}
             autoComplete="new-password"
+            placeholder="Confirm password"
           />
           <button
             type="button"

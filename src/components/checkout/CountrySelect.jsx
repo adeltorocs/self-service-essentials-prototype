@@ -20,14 +20,13 @@ function CountrySelect({
 }) {
   return (
     <Form.Group controlId={id} isInvalid={!!error}>
-      <Form.Label>{label}</Form.Label>
       <Form.Control
         as="select"
         value={value}
         onChange={(e) => onChange(e.target.value)}
         disabled={disabled}
       >
-        <option value="">Select a country</option>
+        <option value="">{label}</option>
         {COUNTRIES.map((c) => (
           <option key={c.code} value={c.name}>{c.name}</option>
         ))}
