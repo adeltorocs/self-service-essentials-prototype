@@ -110,6 +110,14 @@ function PlanDetailsPage({ flow = 'new' }) {
     //   POST /api/v1/auth/email-exists  { email: workEmail }
     //   → if exists AND flow='new', redirect to /login (existing account found)
     //   → if not exists AND flow='existing', show "no account" error
+    //
+    // Pattern: DRF ViewSet with custom @action (enterprise-access §3) — implement as
+    //   @action(detail=False, methods=['post']) on an AuthViewSet. Use a dedicated
+    //   EmailExistsRequestSerializer for input validation.
+    // Pattern: Validation (enterprise-access §14) — field-level email format validation
+    //   in the serializer; cross-field validation checks email against existing accounts.
+    // Pattern: DRF Spectacular (enterprise-access §2) — use @extend_schema with
+    //   inline_serializer for 404 (no account) and 200 (account found) responses.
     if (flow === 'new') {
       navigate(ROUTES.CREATE_ACCOUNT);
     } else {

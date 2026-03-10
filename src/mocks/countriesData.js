@@ -1,5 +1,12 @@
 // BACKEND: replace with GET /api/v1/countries (or use a static list from @edx/i18n-module)
 // United States first; Belarus (BY) and Russia (RU) excluded per compliance policy.
+//
+// Pattern: Caching (enterprise-access §13) — country lists are static reference data;
+//   serve from TieredCache with a long TTL. Frontend mirrors with staleTime: Infinity.
+// Pattern: Validation (enterprise-access §14) — country exclusion rules (sanctions/compliance)
+//   should be enforced server-side as field-level validation, not just client-side filtering.
+// Note: Consider using @edx/i18n-module country list as canonical source rather than
+//   maintaining a separate API endpoint for this static data.
 export const COUNTRIES = [
   { code: 'US', name: 'United States' },
   { code: 'AF', name: 'Afghanistan' },

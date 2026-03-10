@@ -1,7 +1,11 @@
 import React from 'react';
 import { ACADEMY, PLAN } from '../../mocks/academyData';
 
-// BACKEND: replace with data from usePlanDetails() hook once API is live
+// BACKEND: replace with data from usePlanDetails() hook once API is live.
+// Pattern: BFF (enterprise-access §7) — usePlanDetails() calls a BFF endpoint that
+//   aggregates plan metadata + academy catalog data in a single response.
+// Pattern: Caching (enterprise-access §13) — plan/academy data uses 30 min TieredCache
+//   on the backend; frontend mirrors with staleTime: Infinity for static content.
 
 /**
  * EssentialsPlanCard

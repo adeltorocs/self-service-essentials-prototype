@@ -10,6 +10,17 @@
  *     → on success: update isLoggedIn state, navigate to plan-details
  *   - Username availability check (optional real-time):
  *     GET /api/v1/auth/username-available?username={username}
+ *
+ * Pattern: DRF ViewSet (enterprise-access §3) — register endpoint uses a dedicated
+ *   UserRegistrationViewSet with a UserRegistrationRequestSerializer for input.
+ * Pattern: Validation (enterprise-access §14) — field-level (email format, password
+ *   strength, username regex) + cross-field (email uniqueness, username uniqueness)
+ *   + pre-write validation before creating the user record.
+ * Pattern: Celery (enterprise-access §4) — on successful registration, dispatch a
+ *   Celery task (LoggedTaskWithRetry) to send the welcome/verification email via
+ *   BrazeApiClient. Task should be idempotent for safe re-execution.
+ * Pattern: Model (enterprise-access §9) — user record uses TimeStampedModel with
+ *   simple_history for audit trail; PII fields require annotation.
  */
 
 import React, { useState } from 'react';
@@ -90,6 +101,11 @@ function CreateAccountPage() {
     // BACKEND: replace with POST /api/v1/auth/register
     //   { email: state.workEmail, name: state.fullName, username, password, country: state.country }
     //   Handle 409 (username taken), 400 (validation errors) responses.
+    //
+    // Pattern: DRF Spectacular (enterprise-access §2) — use @extend_schema with
+    //   inline_serializer for 409 and 400 error responses with structured error codes.
+    // Pattern: Service Client (enterprise-access §8) — registration calls LmsApiClient
+    //   to create the user in the LMS, then provisions enterprise admin access.
     updateCheckout({ isLoggedIn: true });
     navigate(ROUTES.PLAN_DETAILS_LOGGEDIN);
   }

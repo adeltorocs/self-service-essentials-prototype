@@ -9,13 +9,16 @@ Usability is important to this project and for our users. This prototype/project
 We would like for this prototype to serve as an implementation example for our engineering teams. Please comment/annotate the javascript/react files in the places where the back end implementation should be integrated.
 
 ### Front end architecture
-Read the 'enterprise-frontend-arch-patterns.md' to understand the current frontend architectural patterns
+Read the `enterprise-frontend-arch-patterns.md` to understand the current frontend architectural patterns
+
+### Back end architecture
+Read the `enterprise-access-arch-patterns.md` to understand the current backend architectural patterns
 
 ### Instructions
 Build a static prototype that:
 - Uses mocked data (no real API calls); use inline `const` fixtures or a `/mocks` folder
 - Requires no backend to run (`npm start` should work out of the box)
-- Organizes code following the patterns in `enterprise-frontend-arch-patterns.md` 
+- Organizes code following the patterns in `enterprise-frontend-arch-patterns.md` and `enterprise-access-arch-patterns.md`
   (if this file is missing, stop and ask before proceeding)
 - Uses Paragon v[X] components exclusively for all UI — no custom CSS unless Paragon has no equivalent
 - Annotates every mock with a comment: `// BACKEND: replace with <description of real API call>`

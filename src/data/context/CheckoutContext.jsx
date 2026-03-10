@@ -87,7 +87,16 @@ export function CheckoutProvider({ children }) {
  * In production the initial state would be hydrated from authenticated user
  * data fetched via:
  *   // BACKEND: replace with useQuery(['currentUser'], fetchCurrentUser)
- *   //          to pre-fill fullName, workEmail, country for logged-in users
+ *   //          to pre-fill fullName, workEmail, country for logged-in users.
+ *
+ * Pattern: BFF (enterprise-access §7) — use a BFF endpoint that aggregates user profile
+ *   data from multiple services (LMS user API + enterprise-customer) in a single call.
+ *   Architecture: Context (request data) → Handler (business logic) → ResponseBuilder (output).
+ * Pattern: RBAC (enterprise-access §1) — JWT claims provide implicit access; verify
+ *   SYSTEM_ENTERPRISE_ADMIN_ROLE or SYSTEM_ENTERPRISE_OPERATOR_ROLE before returning
+ *   enterprise-specific user context.
+ * Pattern: Service Client (enterprise-access §8) — fetchCurrentUser should use LmsApiClient
+ *   (extends BaseUserApiClient) to forward the user's JWT for user-context requests.
  */
 export function useCheckout() {
   const ctx = useContext(CheckoutContext);

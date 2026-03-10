@@ -8,6 +8,14 @@
  *     → 200: set isLoggedIn, navigate to plan-details
  *     → 401: show "Incorrect password" error
  *     → 403: show account locked / MFA required message
+ *
+ * Pattern: RBAC (enterprise-access §1) — on successful login, the response includes a
+ *   JWT with role claims (implicit access). The JWT should contain the user's system roles
+ *   (e.g., SYSTEM_ENTERPRISE_ADMIN_ROLE) and feature roles for downstream permission checks.
+ * Pattern: DRF Spectacular (enterprise-access §2) — use @extend_schema with
+ *   inline_serializer for 401/403 error responses with structured error codes.
+ * Pattern: Validation (enterprise-access §14) — field-level validation (email format,
+ *   password non-empty) in LoginRequestSerializer; error responses include developer messages.
  */
 
 import React, { useState } from 'react';
@@ -45,6 +53,8 @@ function LoginPage() {
 
     // BACKEND: replace with POST /api/v1/auth/login { email: state.workEmail, password }
     //   Handle 401 → setError('Incorrect password. Please try again.')
+    // Pattern: Service Client (enterprise-access §8) — login calls LmsApiClient
+    //   which extends BaseUserApiClient for user-context requests with @backoff retry.
     updateCheckout({ isLoggedIn: true });
     navigate(ROUTES.PLAN_DETAILS_LOGGEDIN);
   }

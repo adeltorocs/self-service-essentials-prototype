@@ -14,6 +14,26 @@
  *     → 402: show payment declined error
  *   - Card tokenization: integrate Stripe Elements or Braintree Drop-in
  *     replacing the plain card inputs below.
+ *
+ * Pattern: Abstract Workflow (enterprise-access §6) — subscription purchase is a multi-step
+ *   workflow: (1) validate inputs, (2) create enterprise customer, (3) provision subscription,
+ *   (4) process payment, (5) activate licenses. Uses attrs/cattrs for structured workflow
+ *   inputs/outputs with Django models (AbstractWorkflow, AbstractWorkflowStep) for persistence.
+ *   Each step produces output consumed by the next; idempotent core functions allow safe re-execution.
+ * Pattern: Celery (enterprise-access §4) — after payment success, dispatch background tasks
+ *   (LoggedTaskWithRetry) for: license provisioning, confirmation email (via BrazeApiClient),
+ *   and data sync. Tasks are idempotent with result throttling to prevent duplicate execution.
+ * Pattern: Service Client (enterprise-access §8) — payment processing calls a dedicated
+ *   PaymentApiClient (or Stripe SDK wrapper) extending BaseOAuthClient for service-to-service
+ *   auth. Uses @backoff decorators for automatic retry on transient failures.
+ * Pattern: Validation (enterprise-access §14) — field-level (card token format, billing
+ *   address fields), cross-field (billing country matches card issuer region), and pre-write
+ *   validation in SubscriptionPurchaseRequestSerializer.
+ * Pattern: DRF Spectacular (enterprise-access §2) — @extend_schema defines request
+ *   (SubscriptionPurchaseRequestSerializer) and response (SubscriptionPurchaseResponseSerializer)
+ *   types, with inline_serializer for 402 (payment declined) and 400 error responses.
+ * Pattern: Model (enterprise-access §9) — Subscription model extends TimeStampedModel +
+ *   SoftDeletableModel with simple_history for audit trail of all state transitions.
  */
 
 import React, { useState } from 'react';
@@ -104,6 +124,11 @@ function BillingDetailsPage() {
     // BACKEND: replace with POST /api/v1/subscriptions/purchase
     //   Payment card should be tokenized here via Stripe/Braintree SDK
     //   before sending to the backend. Do NOT send raw card data.
+    //
+    // Pattern: Abstract Workflow (enterprise-access §6) — this triggers the provisioning
+    //   workflow. Steps execute sequentially with idempotent core functions for safe re-execution.
+    // Pattern: Celery (enterprise-access §4) — background tasks handle license provisioning,
+    //   email dispatch, and data sync after the synchronous payment step completes.
     setTimeout(() => {
       updateCheckout({
         billingFirstName: firstName.trim(),
@@ -179,7 +204,10 @@ function BillingDetailsPage() {
 
         {/* Card number + Expiry + CVC — single row */}
         {/* BACKEND: replace card-number input with Stripe Elements <CardNumberElement>
-                     or Braintree Drop-in UI for PCI-compliant card tokenization */}
+                     or Braintree Drop-in UI for PCI-compliant card tokenization.
+             Pattern: Service Client (enterprise-access §8) — Stripe/Braintree SDK handles
+                     client-side tokenization; the resulting cardToken is sent to the backend
+                     PaymentApiClient, never raw card data. */}
         <div className="billing-fields-row">
 
           {/* Card Number */}

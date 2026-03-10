@@ -9,6 +9,17 @@
  *   - Confirmation email is triggered server-side on purchase completion.
  *   - "Go to Dashboard" link should navigate to the real admin portal URL:
  *     https://enterprise.edx.org/{state.urlName}/admin/
+ *
+ * Pattern: BFF (enterprise-access §7) — the /subscriptions/latest endpoint should be a
+ *   BFF that aggregates subscription data + billing info + enterprise customer details into
+ *   one response. Architecture: Context → Handler → ResponseBuilder.
+ * Pattern: RBAC (enterprise-access §1) — endpoint requires authenticated user with
+ *   SYSTEM_ENTERPRISE_ADMIN_ROLE; verified via JWT claims (implicit access).
+ * Pattern: Celery (enterprise-access §4) — confirmation email is dispatched as a background
+ *   task (LoggedTaskWithRetry) via BrazeApiClient on successful purchase. Task is idempotent
+ *   with result throttling to prevent duplicate emails.
+ * Pattern: DRF Spectacular (enterprise-access §2) — @extend_schema on the retrieve action
+ *   defines SubscriptionConfirmationResponseSerializer shape.
  */
 
 import React from 'react';

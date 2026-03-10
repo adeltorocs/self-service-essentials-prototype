@@ -2,6 +2,10 @@ import React from 'react';
 import { TESTIMONIAL } from '../../mocks/academyData';
 
 // BACKEND: replace with GET /api/v1/testimonials?context=essentials-checkout
+// Pattern: DRF ViewSet (enterprise-access §3) — TestimonialViewSet with Pagination
+//   (PaginationWithPageCount) and Filtering (django-filters) by context parameter.
+// Pattern: Caching (enterprise-access §13) — testimonials are semi-static content;
+//   use 30 min TieredCache timeout (content metadata tier).
 function QuoteBox() {
   return (
     <div className="quote-box">

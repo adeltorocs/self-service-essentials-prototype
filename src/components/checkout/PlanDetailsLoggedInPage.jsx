@@ -8,6 +8,18 @@
  * BACKEND integration points:
  *   - On mount: GET /api/v1/current-user → populate state.fullName, state.workEmail
  *   - License count update may call PATCH /api/v1/quotes/{quoteId} { numLicenses }
+ *
+ * Pattern: BFF (enterprise-access §7) — current-user endpoint aggregates user profile +
+ *   enterprise context into a single response. Architecture: Context → Handler → ResponseBuilder.
+ * Pattern: RBAC (enterprise-access §1) — JWT claims provide implicit access; endpoint
+ *   verifies authenticated user before returning profile data.
+ * Pattern: DRF ViewSet (enterprise-access §3) — quote update uses a QuoteViewSet with
+ *   dynamic get_serializer_class() (QuoteUpdateSerializer for PATCH vs QuoteResponseSerializer
+ *   for GET). License count update is a partial_update action.
+ * Pattern: Validation (enterprise-access §14) — cross-field validation ensures numLicenses
+ *   is within plan min/max range; pre-write validation before updating the quote record.
+ * Pattern: Model (enterprise-access §9) — Quote model uses TimeStampedModel with
+ *   simple_history for tracking license count changes (audit trail).
  */
 
 import React, { useState } from 'react';

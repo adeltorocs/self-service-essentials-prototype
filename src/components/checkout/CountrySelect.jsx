@@ -8,7 +8,9 @@ import React from 'react';
 import { Form } from '@openedx/paragon';
 import { COUNTRIES } from '../../mocks/countriesData';
 
-// BACKEND: replace COUNTRIES import with data from useCountries() hook
+// BACKEND: replace COUNTRIES import with data from useCountries() hook.
+// Pattern: Caching (enterprise-access §13) — country data is static; useCountries() hook
+//   should have staleTime: Infinity and backend uses long-TTL TieredCache.
 
 function CountrySelect({
   id,

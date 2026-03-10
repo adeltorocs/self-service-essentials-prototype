@@ -10,6 +10,25 @@
  *   - Invite learner: POST /api/v1/enterprise/{enterpriseSlug}/learners/invite
  *     { email: inviteEmail }
  *   - Nav items (Overview, Learners, Reporting, Settings) link to real portal sections
+ *
+ * Pattern: RBAC (enterprise-access §1) — all portal endpoints require
+ *   SYSTEM_ENTERPRISE_ADMIN_ROLE or CONTENT_ASSIGNMENTS_ADMIN_ROLE via JWT claims.
+ *   ViewSets inherit PermissionRequiredMixin with @rules.predicate decorators.
+ * Pattern: BFF (enterprise-access §7) — subscription endpoint aggregates data from
+ *   LicenseManagerApiClient + enterprise-customer into a single response.
+ *   Architecture: Context → Handler → ResponseBuilder.
+ * Pattern: DRF ViewSet (enterprise-access §3) — subscription retrieval uses a
+ *   SubscriptionViewSet with dynamic get_serializer_class(). Invite uses a custom
+ *   @action(detail=True, methods=['post']) on LearnerViewSet.
+ * Pattern: Service Client (enterprise-access §8) — subscription data fetched via
+ *   LicenseManagerApiClient (extends BaseOAuthClient); invite triggers calls to
+ *   LmsApiClient for user lookup and BrazeApiClient for invitation email.
+ * Pattern: Celery (enterprise-access §4) — learner invite dispatches a background task
+ *   (LoggedTaskWithRetry) to send the invite email via BrazeApiClient. Idempotent task
+ *   design prevents duplicate invitations.
+ * Pattern: Validation (enterprise-access §14) — invite endpoint validates email format
+ *   (field-level), checks license availability (cross-field), and verifies the learner
+ *   is not already invited (pre-write validation). Error responses use structured codes.
  */
 
 import React, { useState } from 'react';
@@ -43,6 +62,11 @@ function AdminPortalPage() {
     // BACKEND: replace with POST /api/v1/enterprise/{enterpriseSlug}/learners/invite
     //   { email: inviteEmail }
     //   Handle 409 (already invited), 422 (no licenses remaining)
+    //
+    // Pattern: Celery (enterprise-access §4) — on success, dispatch a background task
+    //   (LoggedTaskWithRetry) to send the invite email via BrazeApiClient.
+    // Pattern: DRF Spectacular (enterprise-access §2) — @extend_schema with
+    //   inline_serializer for 409/422 error responses with structured error codes.
     setInviteMsg({ type: 'success', text: `Invitation sent to ${inviteEmail}` });
     setInviteEmail('');
     setTimeout(() => setInviteMsg(null), 4000);

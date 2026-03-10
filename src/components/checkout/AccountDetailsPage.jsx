@@ -8,6 +8,20 @@
  *     Currently mocked to always-available.
  *   - On continue: this data will be submitted as part of enterprise customer creation:
  *     POST /api/v1/enterprise-customer/  { name: companyName, slug: urlName, ... }
+ *
+ * Pattern: DRF ViewSet (enterprise-access §3) — EnterpriseCustomerViewSet extends
+ *   ModelViewSet with PermissionRequiredMixin + UserDetailsFromJwtMixin.
+ *   URL availability is a custom @action(detail=False, methods=['get']).
+ *   Enterprise customer creation uses EnterpriseCustomerCreateSerializer (request) and
+ *   EnterpriseCustomerResponseSerializer (response) via dynamic get_serializer_class().
+ * Pattern: RBAC (enterprise-access §1) — creating an enterprise customer requires
+ *   SYSTEM_ENTERPRISE_OPERATOR_ROLE or the JWT-implied admin role; enforce via
+ *   @permission_required decorator on the viewset.
+ * Pattern: Validation (enterprise-access §14) — field-level: slug format (regex, length);
+ *   cross-field: slug uniqueness against existing customers; pre-write validation in serializer.
+ * Pattern: Model (enterprise-access §9) — EnterpriseCustomer extends TimeStampedModel +
+ *   SoftDeletableModel with simple_history; slug field has unique constraint. PII annotation
+ *   required on companyName (# has_pii).
  */
 
 import React, { useState, useEffect } from 'react';
@@ -37,6 +51,7 @@ function AccountDetailsPage() {
   const [errors,      setErrors]      = useState({});
 
   // BACKEND: replace with real availability API call via useUrlAvailability hook
+  // Pattern: DRF ViewSet @action (enterprise-access §3) — see useUrlAvailability in hooks.js
   const { data: urlCheck } = useUrlAvailability(urlName);
   const isUrlAvailable = urlCheck?.available ?? false;
 
