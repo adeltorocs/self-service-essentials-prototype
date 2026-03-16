@@ -42,6 +42,7 @@ import { Form, Button, Alert } from '@openedx/paragon';
 
 import CheckoutLayout from '../layout/CheckoutLayout';
 import PurchaseSummary from '../layout/PurchaseSummary';
+import QuoteBox from '../layout/QuoteBox';
 import CountrySelect from './CountrySelect';
 
 import { useCheckout } from '../../data/context/CheckoutContext';
@@ -353,7 +354,7 @@ function BillingDetailsPage() {
       title="Billing Details"
       steps={STEPS}
       left={leftContent}
-      right={<PurchaseSummary />}
+      right={<><PurchaseSummary /><div className="not-sure-box"><strong>Not sure which plan is right for you?</strong>{' '}<a href="#">Compare plans.</a></div><QuoteBox /></>}
     />
   );
 }

@@ -30,6 +30,7 @@ import { Form, Button, Badge } from '@openedx/paragon';
 
 import CheckoutLayout from '../layout/CheckoutLayout';
 import PurchaseSummary from '../layout/PurchaseSummary';
+import QuoteBox from '../layout/QuoteBox';
 
 import { useCheckout } from '../../data/context/CheckoutContext';
 import { slugify } from '../../data/utils';
@@ -84,6 +85,14 @@ function AccountDetailsPage() {
 
   const leftContent = (
     <>
+      {/* Signed-in indicator */}
+      <div className="form-card" style={{ marginBottom: 'var(--sp-md)' }}>
+        <div className="sib-title">Your Account</div>
+        <div className="sib-user">
+          Signed in as: <strong>{state.fullName} ({state.workEmail})</strong>
+        </div>
+      </div>
+
       {/* Company name */}
       <div className="form-card" style={{ marginBottom: 'var(--sp-md)' }}>
         <h2 className="form-section-title">
@@ -156,7 +165,7 @@ function AccountDetailsPage() {
       title="Account Details"
       steps={STEPS}
       left={leftContent}
-      right={<PurchaseSummary />}
+      right={<><PurchaseSummary /><div className="not-sure-box"><strong>Not sure which plan is right for you?</strong>{' '}<a href="#">Compare plans.</a></div><QuoteBox /></>}
     />
   );
 }

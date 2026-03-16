@@ -68,7 +68,7 @@ function SuccessPage() {
     <>
       {/* Hero */}
       <div className="success-hero">
-        <div className="success-emoji" aria-hidden="true">🎉</div>
+        <img className="success-icon" src="/svg/11c10749e41bec9e584bd21cf356fa8f.svg" alt="" aria-hidden="true" />
         <h1 className="success-title">Thank you, {firstName}.</h1>
       </div>
 

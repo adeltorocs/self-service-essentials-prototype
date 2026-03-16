@@ -56,7 +56,7 @@ function LoginPage() {
     // Pattern: Service Client (enterprise-access §8) — login calls LmsApiClient
     //   which extends BaseUserApiClient for user-context requests with @backoff retry.
     updateCheckout({ isLoggedIn: true });
-    navigate(ROUTES.PLAN_DETAILS_LOGGEDIN);
+    navigate(ROUTES.ACCOUNT_DETAILS);
   }
 
   const leftContent = (
@@ -105,7 +105,7 @@ function LoginPage() {
       title="Log in to your account"
       steps={STEPS}
       left={leftContent}
-      right={<><PurchaseSummary /><QuoteBox /></>}
+      right={<><PurchaseSummary /><div className="not-sure-box"><strong>Not sure which plan is right for you?</strong>{' '}<a href="#">Compare plans.</a></div><QuoteBox /></>}
       logoHref={ROUTES.PLAN_DETAILS_EXISTING}
     />
   );

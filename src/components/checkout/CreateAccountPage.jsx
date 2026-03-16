@@ -107,7 +107,7 @@ function CreateAccountPage() {
     // Pattern: Service Client (enterprise-access §8) — registration calls LmsApiClient
     //   to create the user in the LMS, then provisions enterprise admin access.
     updateCheckout({ isLoggedIn: true });
-    navigate(ROUTES.PLAN_DETAILS_LOGGEDIN);
+    navigate(ROUTES.ACCOUNT_DETAILS);
   }
 
   const leftContent = (
